@@ -1,6 +1,6 @@
 {
   "name": "@fraserelliott/fail",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fraser's Awesome Input Library - a validation library for any fields",
   "main": "fail-schema.js",
   "scripts": {
