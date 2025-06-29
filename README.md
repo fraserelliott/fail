@@ -4,6 +4,7 @@ https://www.npmjs.com/package/@fraserelliott/fail
 
 A flexible, extensible schema validation library for JavaScript.\
 Define rules for your fields and validate data with clean, structured error handling.
+Use FAIL before you fail.
 
 ---
 
