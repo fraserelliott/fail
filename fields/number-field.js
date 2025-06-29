@@ -6,42 +6,42 @@ class NumberField extends Field {
         this.type("number");
     }
 
-    min(x) {
+    min(n) {
         return this.addRule("min", (param) => {
-            if (param >= min) {
+            if (param >= n) {
                 return { valid: true };
             } else {
-                return { valid: false, error: `must be at least ${x}.` };
+                return { valid: false, error: `must be at least ${n}.` };
             }
         });
     }
 
-    greaterThan(x) {
+    greaterThan(n) {
         return this.addRule("greaterThan", (param) => {
-            if (param > min) {
+            if (param > n) {
                 return { valid: true };
             } else {
-                return { valid: false, error: `must be greater than ${x}.` };
+                return { valid: false, error: `must be greater than ${n}.` };
             }
         });
     }
 
-    max(x) {
+    max(n) {
         return this("max", (param) => {
-            if (param <= max) {
+            if (param <= n) {
                 return { valid: true };
             } else {
-                return { valid: false, error: `cannot exceed ${x}.` };
+                return { valid: false, error: `cannot exceed ${n}.` };
             }
         });
     }
 
-    lessThan(x) {
+    lessThan(n) {
         return this.addRule("lessThan", (param) => {
-            if (param < min) {
+            if (param < n) {
                 return { valid: true };
             } else {
-                return { valid: false, error: `must be less than ${x}.` };
+                return { valid: false, error: `must be less than ${n}.` };
             }
         });
     }

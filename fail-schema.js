@@ -88,7 +88,7 @@ class FailSchema {
 
     add(param, validator) {
         if (validator == null || !(validator instanceof Field)) {
-            throw new TypeError("validator parameter must be a non-null instance of ParameterValidator or any subclass.")
+            throw new TypeError("validator parameter must be a non-null instance of Field or any subclass.")
         }
 
         if (typeof param !== "string" || !param) {
