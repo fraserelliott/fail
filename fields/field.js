@@ -1,4 +1,4 @@
-class ParameterValidator {
+class Field {
     constructor() {
         this.rules = new Map();
     }
@@ -34,7 +34,11 @@ class ParameterValidator {
 
     validateAll(value) {
         const allErrors = [];
-        for (const { name, fn } of this.rules) {
+        for (const [name, fn] of this.rules) {
+            if (value === undefined && name !== "required") {
+                continue; //Skip validation if it's undefined unless if it's required, undefined doesn't need to pass any other rules
+            }
+
             let result;
             try {
                 result = fn(value);
@@ -73,26 +77,7 @@ class ParameterValidator {
         }
 
         this.rules.set(name, fn);
-    }
-
-    minLength(min) {
-        return this.addRule("minLength", (param) => {
-            if (param.length >= min) {
-                return { valid: true };
-            } else {
-                return { valid: false, error: `must be at least ${min} characters.` };
-            }
-        });
-    }
-
-    maxLength(max) {
-        return this.addRule("maxLength", (param) => {
-            if (param.length <= max) {
-                return { valid: true };
-            } else {
-                return { valid: false, error: `cannot exceed ${max} characters` };
-            }
-        });
+        return this;
     }
 
     required() {
@@ -114,6 +99,16 @@ class ParameterValidator {
             }
         });
     }
+
+    nonNull() {
+        return this.addRule("nonNull", (param) => {
+            if (param !== null) {
+                return { valid: true };
+            } else {
+                return { valid: false, error: "cannot be null" };
+            }
+        });
+    }
 }
 
-module.exports = ParameterValidator;
+module.exports = Field;
