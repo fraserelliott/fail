@@ -6,8 +6,8 @@ class BooleanField extends Field {
         this.type("boolean");
     }
 
-    isTrue() {
-        return this.addRule("isTrue", (param) => {
+    true() {
+        return this.addRule("true", (param) => {
             if (param) {
                 return { valid: true };
             } else {
@@ -16,8 +16,8 @@ class BooleanField extends Field {
         });
     }
 
-    isFalse() {
-        return this.addRule("isFalse", (param) => {
+    false() {
+        return this.addRule("false", (param) => {
             if (!param) {
                 return { valid: true };
             } else {
