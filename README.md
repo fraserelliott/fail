@@ -114,8 +114,8 @@ Each field type supports chainable rules. For example:
 - `.greaterThan(n)`
 - `.lessThan(n)`
 - `.integer()`
-- `.positive()` // > 0
-- `.unsigned()` // ≥ 0
+- `.positive()` (> 0)
+- `.unsigned()` (≥ 0)
 - `.negative()`
 
 ### BooleanField:
