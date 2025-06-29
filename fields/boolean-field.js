@@ -1,4 +1,4 @@
-const Field = require("field");
+const Field = require("./field");
 
 class BooleanField extends Field {
     constructor() {

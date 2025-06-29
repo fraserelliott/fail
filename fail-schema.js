@@ -1,5 +1,7 @@
 const Field = require("./fields/field");
 const StringField = require("./fields/string-field")
+const BooleanField = require("./fields/boolean-field");
+const NumberField = require("./fields/number-field");
 
 class FailSchema {
     constructor() {
@@ -97,4 +99,4 @@ class FailSchema {
     }
 }
 
-module.exports = { FailSchema, Field, StringField };
+module.exports = { FailSchema, Field, StringField, BooleanField, NumberField };
