@@ -1,5 +1,5 @@
 {
-  "name": "request-params-validator",
+  "name": "input-validator",
   "version": "1.0.0",
   "description": "",
   "main": "validator.js",
