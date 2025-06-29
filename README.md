@@ -1,1 +1,1 @@
-# input-validator
+# Fraser's Awesome Input Library (FAIL)
