@@ -82,10 +82,10 @@ Returns **all errors**, grouped by field:
 
 ## ⚙️ Available Field Types
 
-- `Field()` – base class if you want to extend your own
-- `StringField()`
-- `NumberField()`
-- `BooleanField()`
+- `Field` – base class if you want to extend your own
+- `StringField`
+- `NumberField`
+- `BooleanField`
 
 ---
 
