@@ -82,9 +82,47 @@ class FailSchema {
                 result[param] = { valid: true }
             }
         }
-        
+
         return result;
     }
+
+    validateAllWithCallback(params, callback, ruleMap = null) {
+        if (ruleMap === null)
+            ruleMap = this.generateRuleMap();
+
+        if (typeof ruleMap !== "object" || Array.isArray(ruleMap))
+            throw new TypeError("ruleMap parameter must be a non-null object.");
+
+        if (typeof callback !== "function")
+            throw new TypeError("callback must be a function.");
+
+        const validationResult = this.validateAll(params);
+
+        for (const key in ruleMap) {
+            const rules = ruleMap[key];
+            if (!Array.isArray(rules))
+                throw new TypeError(`Expected rule array for key "${key}".`);
+
+            const errors = rules.filter(({ field, rule }) =>
+                validationResult[field]?.errors?.some(e => e.rule === rule)
+            );
+
+            callback(key, errors);
+        }
+    }
+
+    generateRuleMap() {
+        const ruleMap = {};
+        for (const fieldName of this.fields.keys()) {
+            const field = this.fields.get(fieldName);  // <-- fixed here
+            for (const ruleName of field.rules.keys()) { // <-- assuming rules is a Map
+                const key = `${fieldName}.${ruleName}`;
+                ruleMap[key] = [{ field: fieldName, rule: ruleName }];
+            }
+        }
+        return ruleMap;
+    }
+
 
     add(param, validator) {
         if (validator == null || !(validator instanceof Field)) {

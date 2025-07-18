@@ -1,10 +1,11 @@
 {
   "name": "@fraserelliott/fail",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Fraser's Awesome Input Library - a validation library for any fields",
   "main": "fail-schema.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build:browser": "npx esbuild fail.js --bundle --minify --outfile=dist/fail.esm.js --format=esm"
   },
   "keywords": [
     "validation",

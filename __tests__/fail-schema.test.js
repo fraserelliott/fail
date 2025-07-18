@@ -1,4 +1,4 @@
-const { FailSchema, StringField, BooleanField, NumberField } = require("../fail-schema");
+const { FailSchema, Field, StringField, BooleanField, NumberField } = require("../fail-schema");
 const { expectWithDebug } = require("../test-utils/testUtils");
 
 describe("FailSchema", () => {
