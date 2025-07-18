@@ -25,6 +25,31 @@ const { FailSchema, StringField, BooleanField, NumberField } = Fail;
 
 ---
 
+## ⚙️ Using the `dist` Folder for Frontend
+
+The `dist` folder contains the bundled and minified ES module build of the library (fail.esm.js) suitable for browser usage.
+
+To use it in your frontend project, you can copy the file to your public/static folder as part of your build process. For example, in your package.json scripts:
+
+```json
+{
+  "scripts": {
+    "copy-lib": "cp ./node_modules/@fraserelliott/fail/dist/fail.esm.js ./public/libs/",
+    "build": "npm run copy-lib && your-other-build-steps"
+  }
+}
+```
+
+Then in your frontend JavaScript:
+
+```js
+import { FailSchema, StringField } from './libs/fail.esm.js';
+
+// Use your validation schema as normal
+```
+
+---
+
 ## ⚙️ Example Usage
 
 ### 1. Define a Schema
@@ -81,6 +106,50 @@ Returns **all errors**, grouped by field:
 
 ---
 
+## Using `validateAllWithCallback` for Fine-Grained Validation Feedback
+
+`validateAllWithCallback(params, callback, ruleMap)` allows you to attach metadata (e.g., element IDs) to validation rules and update UI elements dynamically.
+
+### Example `ruleMap` with element IDs:
+
+```js
+const ruleMap = {
+  "username-length": {
+    elementId: "p-username-length",
+    rules: [
+      { field: "username", rule: "minLength" },
+      { field: "username", rule: "maxLength" }
+    ]
+  },
+  "password-specialChar": {
+    elementId: "p-password-special",
+    rules: [
+      { field: "password", rule: "regex" }
+    ]
+  }
+};
+```
+
+### Example callback to toggle error classes on elements with above `ruleMap`:
+
+```js
+const callback = (key, errors, meta) => {
+  const el = document.getElementById(meta.elementId);
+  if (!el) return;
+
+  if (errors.length === 0) {
+    el.classList.remove("error-visible");
+  } else {
+    el.classList.add("error-visible");
+  }
+};
+
+// Usage
+schema.validateAllWithCallback(formData, callback, ruleMap);
+```
+
+---
+
 ## ⚙️ Available Field Types
 
 - `Field` – base class if you want to extend your own
@@ -92,12 +161,12 @@ Returns **all errors**, grouped by field:
 
 ## ⚙️ Built-in Validation Rules
 
-Each field type supports chainable rules. For example:
+Each field type supports chainable rules.
 
 ### Field:
 - `.required()`
 - `.type(t)`
-- `.nonNull`
+- `.nonNull()`
 
 ### StringField:
 

@@ -99,7 +99,7 @@ class FailSchema {
         const validationResult = this.validateAll(params);
 
         for (const key in ruleMap) {
-            const rules = ruleMap[key];
+            const { rules, ...meta } = ruleMap[key];
             if (!Array.isArray(rules))
                 throw new TypeError(`Expected rule array for key "${key}".`);
 
@@ -107,22 +107,21 @@ class FailSchema {
                 validationResult[field]?.errors?.some(e => e.rule === rule)
             );
 
-            callback(key, errors);
+            callback(key, errors, meta);
         }
     }
 
     generateRuleMap() {
         const ruleMap = {};
         for (const fieldName of this.fields.keys()) {
-            const field = this.fields.get(fieldName);  // <-- fixed here
-            for (const ruleName of field.rules.keys()) { // <-- assuming rules is a Map
+            const field = this.fields.get(fieldName);
+            for (const ruleName of field.rules.keys()) {
                 const key = `${fieldName}.${ruleName}`;
-                ruleMap[key] = [{ field: fieldName, rule: ruleName }];
+                ruleMap[key] = {rules: [{ field: fieldName, rule: ruleName }]};
             }
         }
         return ruleMap;
     }
-
 
     add(param, validator) {
         if (validator == null || !(validator instanceof Field)) {
